@@ -1,0 +1,5 @@
+argocd             argocd-server                                    LoadBalancer   10.108.7.155     172.18.1.203   80:30799/TCP,443:30094/TCP      3h33m   app.kubernetes.io/name=argocd-server
+default            nginx-test                                       LoadBalancer   10.96.32.46      172.18.1.200   80:30594/TCP                    2d17h   app=nginx-test
+monitoring         kube-prometheus-stack-alertmanager               LoadBalancer   10.108.12.190    172.18.1.202   9093:31109/TCP,8080:30789/TCP   3h45m   alertmanager=kube-prometheus-stack-alertmanager,app.kubernetes.io/name=alertmanager
+monitoring         kube-prometheus-stack-grafana                    LoadBalancer   10.101.121.104   172.18.1.201   80:31566/TCP                    3h45m   app.kubernetes.io/instance=kube-prometheus-stack,app.kubernetes.io/name=grafana
+monitoring         kube-prometheus-stack-prometheus                 LoadBalancer   10.98.236.246    172.18.1.204   9090:30245/TCP,8080:31542/TCP   3h45m   app.kubernetes.io/name=prometheus,operator.prometheus.io/name=kube-prometheus-stack-prometheus

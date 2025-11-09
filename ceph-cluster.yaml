@@ -1,0 +1,127 @@
+apiVersion: ceph.rook.io/v1
+kind: CephCluster
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"ceph.rook.io/v1","kind":"CephCluster","metadata":{"annotations":{},"name":"rook-ceph","namespace":"rook-ceph"},"spec":{"cephVersion":{"allowUnsupported":false,"image":"quay.io/ceph/ceph:v18.2.4"},"cleanupPolicy":{"allowUninstallWithVolumes":false,"confirmation":"","sanitizeDisks":{"dataSource":"zero","iteration":1,"method":"quick"}},"continueUpgradeAfterChecksEvenIfNotHealthy":false,"crashCollector":{"disable":false},"dashboard":{"enabled":true,"ssl":false},"dataDirHostPath":"/var/lib/rook","disruptionManagement":{"managePodBudgets":true,"osdMaintenanceTimeout":30,"pgHealthCheckTimeout":0},"healthCheck":{"daemonHealth":{"mon":{"interval":"45s","timeout":"600s"},"osd":{"interval":"60s","timeout":"600s"},"status":{"interval":"60s"}},"livenessProbe":{"mgr":{"disabled":false},"mon":{"disabled":false},"osd":{"disabled":false}}},"logCollector":{"enabled":true,"maxLogSize":"500M","periodicity":"daily"},"mgr":{"allowMultiplePerNode":false,"count":2,"modules":[{"enabled":true,"name":"pg_autoscaler"},{"enabled":true,"name":"rook"}]},"mon":{"allowMultiplePerNode":false,"count":3},"skipUpgradeChecks":false,"storage":{"config":{"osdsPerDevice":"1"},"deviceFilter":"^sd[b-z]","useAllDevices":false,"useAllNodes":true},"waitTimeoutForHealthyOSDInMinutes":10}}
+  creationTimestamp: "2025-11-07T21:37:54Z"
+  finalizers:
+  - cephcluster.ceph.rook.io
+  generation: 2
+  name: rook-ceph
+  namespace: rook-ceph
+  resourceVersion: "1162365"
+  uid: 36aff85c-1571-4aa7-8302-092c79bb211d
+spec:
+  cephVersion:
+    image: quay.io/ceph/ceph:v18.2.4
+  cleanupPolicy:
+    sanitizeDisks:
+      dataSource: zero
+      iteration: 1
+      method: quick
+  crashCollector: {}
+  csi:
+    cephfs: {}
+    readAffinity:
+      enabled: false
+  dashboard:
+    enabled: true
+  dataDirHostPath: /var/lib/rook
+  disruptionManagement:
+    managePodBudgets: true
+    osdMaintenanceTimeout: 30
+  external: {}
+  healthCheck:
+    daemonHealth:
+      mon:
+        interval: 45s
+        timeout: 600s
+      osd:
+        interval: 1m0s
+        timeout: 600s
+      status:
+        interval: 1m0s
+    livenessProbe:
+      mgr: {}
+      mon: {}
+      osd: {}
+  logCollector:
+    enabled: true
+    maxLogSize: 500M
+    periodicity: daily
+  mgr:
+    count: 2
+    modules:
+    - enabled: true
+      name: pg_autoscaler
+      settings: {}
+    - enabled: true
+      name: rook
+      settings: {}
+  mon:
+    count: 3
+  monitoring: {}
+  network:
+    multiClusterService: {}
+  security:
+    keyRotation:
+      enabled: false
+    kms: {}
+  storage:
+    config:
+      osdsPerDevice: "1"
+    deviceFilter: ^sd[b-z]
+    flappingRestartIntervalHours: 0
+    store: {}
+    useAllDevices: false
+    useAllNodes: true
+  waitTimeoutForHealthyOSDInMinutes: 10
+status:
+  ceph:
+    capacity:
+      bytesAvailable: 637504610304
+      bytesTotal: 644245094400
+      bytesUsed: 6740484096
+      lastUpdated: "2025-11-09T23:40:38Z"
+    details:
+      MON_DISK_LOW:
+        message: mons a,b are low on available space
+        severity: HEALTH_WARN
+      POOL_APP_NOT_ENABLED:
+        message: 1 pool(s) do not have an application enabled
+        severity: HEALTH_WARN
+    fsid: 969f3527-757f-45f2-8d05-efa48843fa9b
+    health: HEALTH_WARN
+    lastChanged: "2025-11-07T21:42:59Z"
+    lastChecked: "2025-11-09T23:40:38Z"
+    previousHealth: HEALTH_OK
+    versions:
+      mgr:
+        ceph version 18.2.4 (e7ad5345525c7aa95470c26863873b581076945d) reef (stable): 2
+      mon:
+        ceph version 18.2.4 (e7ad5345525c7aa95470c26863873b581076945d) reef (stable): 3
+      osd:
+        ceph version 18.2.4 (e7ad5345525c7aa95470c26863873b581076945d) reef (stable): 3
+      overall:
+        ceph version 18.2.4 (e7ad5345525c7aa95470c26863873b581076945d) reef (stable): 8
+  conditions:
+  - lastHeartbeatTime: "2025-11-09T23:40:39Z"
+    lastTransitionTime: "2025-11-07T21:41:57Z"
+    message: Cluster created successfully
+    reason: ClusterCreated
+    status: "True"
+    type: Ready
+  message: Cluster created successfully
+  observedGeneration: 2
+  phase: Ready
+  state: Created
+  storage:
+    deviceClasses:
+    - name: hdd
+    osd:
+      storeType:
+        bluestore: 3
+  version:
+    image: quay.io/ceph/ceph:v18.2.4
+    version: 18.2.4-0

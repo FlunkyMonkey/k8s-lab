@@ -1,0 +1,45 @@
+USER-SUPPLIED VALUES:
+alertmanager:
+  alertmanagerSpec:
+    storage:
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 5Gi
+          storageClassName: rook-ceph-block
+  service:
+    type: LoadBalancer
+grafana:
+  adminPassword: admin
+  enabled: true
+  persistence:
+    enabled: true
+    size: 5Gi
+    storageClassName: rook-ceph-block
+  service:
+    type: LoadBalancer
+  sidecar:
+    datasources:
+      defaultDatasourceEnabled: true
+      enabled: true
+kubeStateMetrics:
+  enabled: true
+nodeExporter:
+  enabled: true
+prometheus:
+  prometheusSpec:
+    retention: 7d
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 10Gi
+          storageClassName: rook-ceph-block
+prometheusOperator:
+  enabled: true

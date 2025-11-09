@@ -1,0 +1,13 @@
+USER-SUPPLIED VALUES:
+grafana:
+  enabled: false
+loki:
+  enabled: true
+  persistence:
+    enabled: true
+    size: 10Gi
+    storageClassName: rook-ceph-block
+prometheus:
+  enabled: false
+promtail:
+  enabled: true

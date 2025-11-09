@@ -1,0 +1,751 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Node
+  metadata:
+    annotations:
+      csi.volume.kubernetes.io/nodeid: '{"csi.tigera.io":"kube1","rook-ceph.cephfs.csi.ceph.com":"kube1","rook-ceph.rbd.csi.ceph.com":"kube1"}'
+      kubeadm.alpha.kubernetes.io/cri-socket: unix:///var/run/containerd/containerd.sock
+      node.alpha.kubernetes.io/ttl: "0"
+      projectcalico.org/IPv4Address: 172.18.1.61/24
+      projectcalico.org/IPv4VXLANTunnelAddr: 10.244.18.0
+      volumes.kubernetes.io/controller-managed-attach-detach: "true"
+    creationTimestamp: "2025-11-05T02:36:43Z"
+    labels:
+      beta.kubernetes.io/arch: amd64
+      beta.kubernetes.io/os: linux
+      kubernetes.io/arch: amd64
+      kubernetes.io/hostname: kube1
+      kubernetes.io/os: linux
+      node-role.kubernetes.io/control-plane: ""
+      node.kubernetes.io/exclude-from-external-load-balancers: ""
+    name: kube1
+    resourceVersion: "1160524"
+    uid: e2e32dc4-34e2-4278-ae6a-140b7e89ed2b
+  spec:
+    podCIDR: 10.244.0.0/24
+    podCIDRs:
+    - 10.244.0.0/24
+  status:
+    addresses:
+    - address: 172.18.1.61
+      type: InternalIP
+    - address: kube1
+      type: Hostname
+    allocatable:
+      cpu: "4"
+      ephemeral-storage: "27418768544"
+      hugepages-2Mi: "0"
+      memory: 16274600Ki
+      pods: "110"
+    capacity:
+      cpu: "4"
+      ephemeral-storage: 29751268Ki
+      hugepages-2Mi: "0"
+      memory: 16377000Ki
+      pods: "110"
+    conditions:
+    - lastHeartbeatTime: "2025-11-07T21:33:08Z"
+      lastTransitionTime: "2025-11-07T21:33:08Z"
+      message: Calico is running on this node
+      reason: CalicoIsUp
+      status: "False"
+      type: NetworkUnavailable
+    - lastHeartbeatTime: "2025-11-09T23:31:07Z"
+      lastTransitionTime: "2025-11-07T21:32:56Z"
+      message: kubelet has sufficient memory available
+      reason: KubeletHasSufficientMemory
+      status: "False"
+      type: MemoryPressure
+    - lastHeartbeatTime: "2025-11-09T23:31:07Z"
+      lastTransitionTime: "2025-11-07T21:32:56Z"
+      message: kubelet has no disk pressure
+      reason: KubeletHasNoDiskPressure
+      status: "False"
+      type: DiskPressure
+    - lastHeartbeatTime: "2025-11-09T23:31:07Z"
+      lastTransitionTime: "2025-11-07T21:32:56Z"
+      message: kubelet has sufficient PID available
+      reason: KubeletHasSufficientPID
+      status: "False"
+      type: PIDPressure
+    - lastHeartbeatTime: "2025-11-09T23:31:07Z"
+      lastTransitionTime: "2025-11-07T21:32:56Z"
+      message: kubelet is posting ready status
+      reason: KubeletReady
+      status: "True"
+      type: Ready
+    daemonEndpoints:
+      kubeletEndpoint:
+        Port: 10250
+    images:
+    - names:
+      - quay.io/cephcsi/cephcsi@sha256:e550a2f872ca468ec552157a9db79abfbbb27375d15ccc4abb439f69fa292726
+      - quay.io/cephcsi/cephcsi:v3.12.2
+      sizeBytes: 549477808
+    - names:
+      - docker.io/rook/ceph@sha256:b94b23ecaf32e656c2460e2420dbc328be2951c673e41b7d3f2e3fe1eddecb59
+      - docker.io/rook/ceph:v1.15.5
+      sizeBytes: 470665628
+    - names:
+      - quay.io/ceph/ceph@sha256:6ac7f923aa1d23b43248ce0ddec7e1388855ee3d00813b52c3172b0b23b37906
+      - quay.io/ceph/ceph:v18.2.4
+      sizeBytes: 437611542
+    - names:
+      - docker.io/calico/node@sha256:385bf6391fea031649b8575799248762a2caece86e6e3f33ffee19c0c096e6a8
+      - docker.io/calico/node:v3.28.0
+      sizeBytes: 115239232
+    - names:
+      - docker.io/calico/cni@sha256:cef0c907b8f4cadc63701d371e6f24d325795bcf0be84d6a517e33000ff35f70
+      - docker.io/calico/cni:v3.28.0
+      sizeBytes: 94536228
+    - names:
+      - docker.io/grafana/promtail@sha256:65bfae480b572854180c78f7dc567a4ad2ba548b0c410e696baa1e0fa6381299
+      - docker.io/grafana/promtail:3.5.1
+      sizeBytes: 65313914
+    - names:
+      - docker.io/library/nginx@sha256:1beed3ca46acebe9d3fb62e9067f03d05d5bfa97a00f30938a0a3580563272ad
+      - docker.io/library/nginx:latest
+      sizeBytes: 59774010
+    - names:
+      - registry.k8s.io/etcd@sha256:a6dc63e6e8cfa0307d7851762fa6b629afb18f28d8aa3fab5a6e91b4af60026a
+      - registry.k8s.io/etcd:3.5.15-0
+      sizeBytes: 56909194
+    - names:
+      - quay.io/metallb/speaker@sha256:b09a1dfcf330938950b65115cd58f6989108c0c21d3c096040e7fe9a25a92993
+      - quay.io/metallb/speaker:v0.14.9
+      sizeBytes: 55246333
+    - names:
+      - quay.io/metallb/speaker@sha256:b4a5576a3cf5816612f54355804bdb83a2560ad4120691129a2e5bac5339ee0c
+      - quay.io/metallb/speaker:v0.13.12
+      sizeBytes: 52067123
+    - names:
+      - docker.io/calico/apiserver@sha256:9a93592acff4fac0829f5254ee1335581a2cce16c4f11b36c4c89a48740d8efc
+      - docker.io/calico/apiserver:v3.28.0
+      sizeBytes: 41869654
+    - names:
+      - docker.io/calico/kube-controllers@sha256:8f04e4772a2b3fa752bc7fb98cc89c7fa0ab88a341115ee8c5b6faa4180053fd
+      - docker.io/calico/kube-controllers:v3.28.0
+      sizeBytes: 34954139
+    - names:
+      - docker.io/calico/typha@sha256:77677c3b2614923988960151008ffc876582c722199e4b0a9a084a70b6539637
+      - docker.io/calico/typha:v3.28.0
+      sizeBytes: 30906400
+    - names:
+      - registry.k8s.io/kube-proxy@sha256:a39637326e88d128d38da6ff2b2ceb4e856475887bfcb5f7a55734d4f63d9fae
+      - registry.k8s.io/kube-proxy:v1.31.13
+      sizeBytes: 30409271
+    - names:
+      - registry.k8s.io/sig-storage/csi-provisioner@sha256:405a14e1aa702f7ea133cea459e8395fe40a6125c088c55569e696d48e1bd385
+      - registry.k8s.io/sig-storage/csi-provisioner:v5.0.1
+      sizeBytes: 30334083
+    - names:
+      - quay.io/metallb/controller@sha256:86261567e5ff03978893bf03ea865275283ad1e3f0f20dd342ed501b651fdf78
+      - quay.io/metallb/controller:v0.14.9
+      sizeBytes: 29163511
+    - names:
+      - registry.k8s.io/sig-storage/csi-resizer@sha256:a541e6cc2d8b011bb21b1d4ffec6b090e85270cce6276ee302d86153eec0af43
+      - registry.k8s.io/sig-storage/csi-resizer:v1.11.1
+      sizeBytes: 29161532
+    - names:
+      - registry.k8s.io/sig-storage/csi-attacher@sha256:b4d611100ece2f9bc980d1cb19c2285b8868da261e3b1ee8f45448ab5512ab94
+      - registry.k8s.io/sig-storage/csi-attacher:v4.6.1
+      sizeBytes: 28974442
+    - names:
+      - registry.k8s.io/sig-storage/csi-snapshotter@sha256:2e04046334baf9be425bb0fa1d04c2d1720d770825eedbdbcdb10d430da4ad8c
+      - registry.k8s.io/sig-storage/csi-snapshotter:v8.0.1
+      sizeBytes: 28522689
+    - names:
+      - registry.k8s.io/kube-apiserver@sha256:9abeb8a2d3e53e356d1f2e5d5dc2081cf28f23242651b0552c9e38f4a7ae960e
+      - registry.k8s.io/kube-apiserver:v1.31.13
+      sizeBytes: 28113723
+    - names:
+      - registry.k8s.io/kube-controller-manager@sha256:facc91288697a288a691520949fe4eec40059ef065c89da8e10481d14e131b09
+      - registry.k8s.io/kube-controller-manager:v1.31.13
+      sizeBytes: 26351311
+    - names:
+      - registry.k8s.io/kube-scheduler@sha256:c5ce150dcce2419fdef9f9875fef43014355ccebf937846ed3a2971953f9b241
+      - registry.k8s.io/kube-scheduler:v1.31.13
+      sizeBytes: 20422395
+    - names:
+      - registry.k8s.io/coredns/coredns@sha256:9caabbf6238b189a65d0d6e6ac138de60d6a1c419e5a341fbbb7c78382559c6e
+      - registry.k8s.io/coredns/coredns:v1.11.3
+      sizeBytes: 18562039
+    - names:
+      - ghcr.io/kube-vip/kube-vip@sha256:46cc888ea7470fd804a7ad6755210e9a7726944dd52392068dae81baa8525768
+      - ghcr.io/kube-vip/kube-vip:v0.8.5
+      sizeBytes: 15980855
+    - names:
+      - registry.k8s.io/sig-storage/csi-node-driver-registrar@sha256:e01facb9fb9cffaf52d0053bdb979fbd8c505c8e411939a6e026dd061a6b4fbe
+      - registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.11.1
+      sizeBytes: 13697025
+    - names:
+      - quay.io/prometheus/node-exporter@sha256:337ff1d356b68d39cef853e8c6345de11ce7556bb34cda8bd205bcf2ed30b565
+      - quay.io/prometheus/node-exporter:v1.10.2
+      sizeBytes: 13054407
+    - names:
+      - docker.io/calico/node-driver-registrar@sha256:25a00aca99eb67ca8fc6fda2888bdce0f8bb6704d71433f3daba52e72061a785
+      - docker.io/calico/node-driver-registrar:v3.28.0
+      sizeBytes: 11595985
+    - names:
+      - docker.io/calico/csi@sha256:6590b3466d5bfeb26e0337b85bdd25ff5361e6373e5e5a72fab5212a65c62247
+      - docker.io/calico/csi:v3.28.0
+      sizeBytes: 9089440
+    - names:
+      - docker.io/calico/pod2daemon-flexvol@sha256:2054fc9485e11bdde7ec8e22bca88bbf3a0f777f6c17509045a427294aa0a54b
+      - docker.io/calico/pod2daemon-flexvol:v3.28.0
+      sizeBytes: 6588906
+    - names:
+      - registry.k8s.io/pause@sha256:ee6521f290b2168b6e0935a181d4cff9be1ac3f505666ef0e3c98fae8199917a
+      - registry.k8s.io/pause:3.10
+      sizeBytes: 320368
+    - names:
+      - registry.k8s.io/pause@sha256:9001185023633d17a2f98ff69b6ff2615b8ea02a825adffa40422f51dfdcde9d
+      - registry.k8s.io/pause:3.8
+      sizeBytes: 311286
+    nodeInfo:
+      architecture: amd64
+      bootID: b7688531-aa53-4681-8f4f-742b3d092a9a
+      containerRuntimeVersion: containerd://1.7.28
+      kernelVersion: 6.8.0-87-generic
+      kubeProxyVersion: v1.31.13
+      kubeletVersion: v1.31.13
+      machineID: 715516ef67c94f0db17d855777e3c81f
+      operatingSystem: linux
+      osImage: Ubuntu 24.04.3 LTS
+      systemUUID: 039b7ae3-0d2b-429f-b9d3-3507d4a45aa2
+- apiVersion: v1
+  kind: Node
+  metadata:
+    annotations:
+      csi.volume.kubernetes.io/nodeid: '{"csi.tigera.io":"kube2","rook-ceph.cephfs.csi.ceph.com":"kube2","rook-ceph.rbd.csi.ceph.com":"kube2"}'
+      kubeadm.alpha.kubernetes.io/cri-socket: unix:///var/run/containerd/containerd.sock
+      node.alpha.kubernetes.io/ttl: "0"
+      projectcalico.org/IPv4Address: 172.18.1.62/24
+      projectcalico.org/IPv4VXLANTunnelAddr: 10.244.2.64
+      volumes.kubernetes.io/controller-managed-attach-detach: "true"
+    creationTimestamp: "2025-11-05T02:41:31Z"
+    labels:
+      beta.kubernetes.io/arch: amd64
+      beta.kubernetes.io/os: linux
+      kubernetes.io/arch: amd64
+      kubernetes.io/hostname: kube2
+      kubernetes.io/os: linux
+      node-role.kubernetes.io/control-plane: ""
+      node.kubernetes.io/exclude-from-external-load-balancers: ""
+    name: kube2
+    resourceVersion: "1160342"
+    uid: ab03ba33-89ec-421b-a25a-0a115f23c0f8
+  spec:
+    podCIDR: 10.244.1.0/24
+    podCIDRs:
+    - 10.244.1.0/24
+  status:
+    addresses:
+    - address: 172.18.1.62
+      type: InternalIP
+    - address: kube2
+      type: Hostname
+    allocatable:
+      cpu: "4"
+      ephemeral-storage: "27418768544"
+      hugepages-2Mi: "0"
+      memory: 16274596Ki
+      pods: "110"
+    capacity:
+      cpu: "4"
+      ephemeral-storage: 29751268Ki
+      hugepages-2Mi: "0"
+      memory: 16376996Ki
+      pods: "110"
+    conditions:
+    - lastHeartbeatTime: "2025-11-07T21:29:13Z"
+      lastTransitionTime: "2025-11-07T21:29:13Z"
+      message: Calico is running on this node
+      reason: CalicoIsUp
+      status: "False"
+      type: NetworkUnavailable
+    - lastHeartbeatTime: "2025-11-09T23:30:10Z"
+      lastTransitionTime: "2025-11-07T21:29:00Z"
+      message: kubelet has sufficient memory available
+      reason: KubeletHasSufficientMemory
+      status: "False"
+      type: MemoryPressure
+    - lastHeartbeatTime: "2025-11-09T23:30:10Z"
+      lastTransitionTime: "2025-11-07T21:29:00Z"
+      message: kubelet has no disk pressure
+      reason: KubeletHasNoDiskPressure
+      status: "False"
+      type: DiskPressure
+    - lastHeartbeatTime: "2025-11-09T23:30:10Z"
+      lastTransitionTime: "2025-11-07T21:29:00Z"
+      message: kubelet has sufficient PID available
+      reason: KubeletHasSufficientPID
+      status: "False"
+      type: PIDPressure
+    - lastHeartbeatTime: "2025-11-09T23:30:10Z"
+      lastTransitionTime: "2025-11-07T21:29:00Z"
+      message: kubelet is posting ready status
+      reason: KubeletReady
+      status: "True"
+      type: Ready
+    daemonEndpoints:
+      kubeletEndpoint:
+        Port: 10250
+    images:
+    - names:
+      - quay.io/cephcsi/cephcsi@sha256:e550a2f872ca468ec552157a9db79abfbbb27375d15ccc4abb439f69fa292726
+      - quay.io/cephcsi/cephcsi:v3.12.2
+      sizeBytes: 549477808
+    - names:
+      - docker.io/rook/ceph@sha256:b94b23ecaf32e656c2460e2420dbc328be2951c673e41b7d3f2e3fe1eddecb59
+      - docker.io/rook/ceph:v1.15.5
+      sizeBytes: 470665628
+    - names:
+      - quay.io/ceph/ceph@sha256:6ac7f923aa1d23b43248ce0ddec7e1388855ee3d00813b52c3172b0b23b37906
+      - quay.io/ceph/ceph:v18.2.4
+      sizeBytes: 437611542
+    - names:
+      - quay.io/argoproj/argocd@sha256:3c9b3b33a7e6c9c56a9d8417af1845afc516f714941962208b125017bbc1e4b1
+      - quay.io/argoproj/argocd:v3.2.0
+      sizeBytes: 195024619
+    - names:
+      - quay.io/prometheus/prometheus@sha256:49214755b6153f90a597adcbff0252cc61069f8ab69ce8411285cd4a560e8038
+      - quay.io/prometheus/prometheus:v3.7.3
+      sizeBytes: 134450342
+    - names:
+      - docker.io/calico/node@sha256:385bf6391fea031649b8575799248762a2caece86e6e3f33ffee19c0c096e6a8
+      - docker.io/calico/node:v3.28.0
+      sizeBytes: 115239232
+    - names:
+      - docker.io/calico/cni@sha256:cef0c907b8f4cadc63701d371e6f24d325795bcf0be84d6a517e33000ff35f70
+      - docker.io/calico/cni:v3.28.0
+      sizeBytes: 94536228
+    - names:
+      - docker.io/grafana/promtail@sha256:65bfae480b572854180c78f7dc567a4ad2ba548b0c410e696baa1e0fa6381299
+      - docker.io/grafana/promtail:3.5.1
+      sizeBytes: 65313914
+    - names:
+      - docker.io/library/nginx@sha256:1beed3ca46acebe9d3fb62e9067f03d05d5bfa97a00f30938a0a3580563272ad
+      - docker.io/library/nginx:latest
+      sizeBytes: 59774010
+    - names:
+      - registry.k8s.io/etcd@sha256:a6dc63e6e8cfa0307d7851762fa6b629afb18f28d8aa3fab5a6e91b4af60026a
+      - registry.k8s.io/etcd:3.5.15-0
+      sizeBytes: 56909194
+    - names:
+      - quay.io/metallb/speaker@sha256:b09a1dfcf330938950b65115cd58f6989108c0c21d3c096040e7fe9a25a92993
+      - quay.io/metallb/speaker:v0.14.9
+      sizeBytes: 55246333
+    - names:
+      - quay.io/metallb/speaker@sha256:b4a5576a3cf5816612f54355804bdb83a2560ad4120691129a2e5bac5339ee0c
+      - quay.io/metallb/speaker:v0.13.12
+      sizeBytes: 52067123
+    - names:
+      - ghcr.io/dexidp/dex@sha256:b08a58c9731c693b8db02154d7afda798e1888dc76db30d34c4a0d0b8a26d913
+      - ghcr.io/dexidp/dex:v2.43.0
+      sizeBytes: 43032839
+    - names:
+      - docker.io/calico/apiserver@sha256:9a93592acff4fac0829f5254ee1335581a2cce16c4f11b36c4c89a48740d8efc
+      - docker.io/calico/apiserver:v3.28.0
+      sizeBytes: 41869654
+    - names:
+      - quay.io/prometheus/alertmanager@sha256:88743b63b3e09ea6e31e140ced5bf45f4a8e82c617c2a963f78841f4995ad1d7
+      - quay.io/prometheus/alertmanager:v0.29.0
+      sizeBytes: 35538534
+    - names:
+      - docker.io/calico/kube-controllers@sha256:8f04e4772a2b3fa752bc7fb98cc89c7fa0ab88a341115ee8c5b6faa4180053fd
+      - docker.io/calico/kube-controllers:v3.28.0
+      sizeBytes: 34954139
+    - names:
+      - docker.io/calico/typha@sha256:77677c3b2614923988960151008ffc876582c722199e4b0a9a084a70b6539637
+      - docker.io/calico/typha:v3.28.0
+      sizeBytes: 30906400
+    - names:
+      - registry.k8s.io/kube-proxy@sha256:a39637326e88d128d38da6ff2b2ceb4e856475887bfcb5f7a55734d4f63d9fae
+      - registry.k8s.io/kube-proxy:v1.31.13
+      sizeBytes: 30409271
+    - names:
+      - registry.k8s.io/sig-storage/csi-provisioner@sha256:405a14e1aa702f7ea133cea459e8395fe40a6125c088c55569e696d48e1bd385
+      - registry.k8s.io/sig-storage/csi-provisioner:v5.0.1
+      sizeBytes: 30334083
+    - names:
+      - quay.io/metallb/controller@sha256:86261567e5ff03978893bf03ea865275283ad1e3f0f20dd342ed501b651fdf78
+      - quay.io/metallb/controller:v0.14.9
+      sizeBytes: 29163511
+    - names:
+      - registry.k8s.io/sig-storage/csi-resizer@sha256:a541e6cc2d8b011bb21b1d4ffec6b090e85270cce6276ee302d86153eec0af43
+      - registry.k8s.io/sig-storage/csi-resizer:v1.11.1
+      sizeBytes: 29161532
+    - names:
+      - registry.k8s.io/sig-storage/csi-attacher@sha256:b4d611100ece2f9bc980d1cb19c2285b8868da261e3b1ee8f45448ab5512ab94
+      - registry.k8s.io/sig-storage/csi-attacher:v4.6.1
+      sizeBytes: 28974442
+    - names:
+      - quay.io/metallb/controller@sha256:2b7eca48ed135e5f298b4ac349ec9f3b3a897ca26cc64d61939d0bfc9dcab847
+      - quay.io/metallb/controller:v0.13.12
+      sizeBytes: 28523651
+    - names:
+      - registry.k8s.io/sig-storage/csi-snapshotter@sha256:2e04046334baf9be425bb0fa1d04c2d1720d770825eedbdbcdb10d430da4ad8c
+      - registry.k8s.io/sig-storage/csi-snapshotter:v8.0.1
+      sizeBytes: 28522689
+    - names:
+      - registry.k8s.io/kube-apiserver@sha256:9abeb8a2d3e53e356d1f2e5d5dc2081cf28f23242651b0552c9e38f4a7ae960e
+      - registry.k8s.io/kube-apiserver:v1.31.13
+      sizeBytes: 28113723
+    - names:
+      - docker.io/grafana/loki@sha256:757b5fadf816a1396f1fea598152947421fa49cb8b2db1ddd2a6e30fae003253
+      - docker.io/grafana/loki:3.0.0
+      sizeBytes: 26358865
+    - names:
+      - registry.k8s.io/kube-controller-manager@sha256:facc91288697a288a691520949fe4eec40059ef065c89da8e10481d14e131b09
+      - registry.k8s.io/kube-controller-manager:v1.31.13
+      sizeBytes: 26351311
+    - names:
+      - docker.io/library/nginx@sha256:b3c656d55d7ad751196f21b7fd2e8d4da9cb430e32f646adcf92441b72f82b14
+      - docker.io/library/nginx:alpine
+      sizeBytes: 22631814
+    - names:
+      - quay.io/tigera/operator@sha256:479ddc7ff9ab095058b96f6710bbf070abada86332e267d6e5dcc1df36ba2cc5
+      - quay.io/tigera/operator:v1.34.0
+      sizeBytes: 22070263
+    - names:
+      - registry.k8s.io/kube-scheduler@sha256:c5ce150dcce2419fdef9f9875fef43014355ccebf937846ed3a2971953f9b241
+      - registry.k8s.io/kube-scheduler:v1.31.13
+      sizeBytes: 20422395
+    - names:
+      - docker.io/grafana/loki@sha256:1ee60f980950b00e505bd564b40f720132a0653b110e993043bb5940673d060a
+      - docker.io/grafana/loki:2.6.1
+      sizeBytes: 20094464
+    - names:
+      - registry.k8s.io/kube-state-metrics/kube-state-metrics@sha256:2bbc915567334b13632bf62c0a97084aff72a36e13c4dabd5f2f11c898c5bacd
+      - registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.17.0
+      sizeBytes: 18895170
+    - names:
+      - registry.k8s.io/ingress-nginx/kube-webhook-certgen@sha256:bcfc926ed57831edf102d62c5c0e259572591df4796ef1420b87f9cf6092497f
+      - registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.6.4
+      sizeBytes: 18872708
+    - names:
+      - registry.k8s.io/coredns/coredns@sha256:9caabbf6238b189a65d0d6e6ac138de60d6a1c419e5a341fbbb7c78382559c6e
+      - registry.k8s.io/coredns/coredns:v1.11.3
+      sizeBytes: 18562039
+    - names:
+      - registry.k8s.io/sig-storage/nfs-subdir-external-provisioner@sha256:63d5e04551ec8b5aae83b6f35938ca5ddc50a88d85492d9731810c31591fa4c9
+      - registry.k8s.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2
+      sizeBytes: 17904239
+    - names:
+      - quay.io/prometheus-operator/prometheus-config-reloader@sha256:44dd821cb3dd26698c3e97b10dc22ec5707afe6126b5912dc11b169394bf2ef7
+      - quay.io/prometheus-operator/prometheus-config-reloader:v0.86.2
+      sizeBytes: 15179466
+    - names:
+      - registry.k8s.io/sig-storage/csi-node-driver-registrar@sha256:e01facb9fb9cffaf52d0053bdb979fbd8c505c8e411939a6e026dd061a6b4fbe
+      - registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.11.1
+      sizeBytes: 13697025
+    - names:
+      - quay.io/prometheus/node-exporter@sha256:337ff1d356b68d39cef853e8c6345de11ce7556bb34cda8bd205bcf2ed30b565
+      - quay.io/prometheus/node-exporter:v1.10.2
+      sizeBytes: 13054407
+    - names:
+      - docker.io/calico/node-driver-registrar@sha256:25a00aca99eb67ca8fc6fda2888bdce0f8bb6704d71433f3daba52e72061a785
+      - docker.io/calico/node-driver-registrar:v3.28.0
+      sizeBytes: 11595985
+    - names:
+      - docker.io/calico/csi@sha256:6590b3466d5bfeb26e0337b85bdd25ff5361e6373e5e5a72fab5212a65c62247
+      - docker.io/calico/csi:v3.28.0
+      sizeBytes: 9089440
+    - names:
+      - docker.io/calico/pod2daemon-flexvol@sha256:2054fc9485e11bdde7ec8e22bca88bbf3a0f777f6c17509045a427294aa0a54b
+      - docker.io/calico/pod2daemon-flexvol:v3.28.0
+      sizeBytes: 6588906
+    - names:
+      - registry.k8s.io/pause@sha256:ee6521f290b2168b6e0935a181d4cff9be1ac3f505666ef0e3c98fae8199917a
+      - registry.k8s.io/pause:3.10
+      sizeBytes: 320368
+    - names:
+      - registry.k8s.io/pause@sha256:9001185023633d17a2f98ff69b6ff2615b8ea02a825adffa40422f51dfdcde9d
+      - registry.k8s.io/pause:3.8
+      sizeBytes: 311286
+    nodeInfo:
+      architecture: amd64
+      bootID: 91d17752-7b58-4e1a-8efb-3a7864e52c6e
+      containerRuntimeVersion: containerd://1.7.28
+      kernelVersion: 6.8.0-87-generic
+      kubeProxyVersion: v1.31.13
+      kubeletVersion: v1.31.13
+      machineID: 715516ef67c94f0db17d855777e3c81f
+      operatingSystem: linux
+      osImage: Ubuntu 24.04.3 LTS
+      systemUUID: 52fc000f-72e6-4d06-abff-10cc1fa8b6ee
+    volumesAttached:
+    - devicePath: ""
+      name: kubernetes.io/csi/rook-ceph.rbd.csi.ceph.com^0001-0009-rook-ceph-0000000000000002-46b3b399-85ed-4078-a95f-77c4c4152b2e
+    - devicePath: ""
+      name: kubernetes.io/csi/rook-ceph.rbd.csi.ceph.com^0001-0009-rook-ceph-0000000000000002-3bb5bb7f-1e0a-439a-8141-526a270b8680
+    - devicePath: ""
+      name: kubernetes.io/csi/rook-ceph.rbd.csi.ceph.com^0001-0009-rook-ceph-0000000000000002-5d9c6eff-7d22-4e8b-8181-8adb2f9c493d
+    volumesInUse:
+    - kubernetes.io/csi/rook-ceph.rbd.csi.ceph.com^0001-0009-rook-ceph-0000000000000002-3bb5bb7f-1e0a-439a-8141-526a270b8680
+    - kubernetes.io/csi/rook-ceph.rbd.csi.ceph.com^0001-0009-rook-ceph-0000000000000002-46b3b399-85ed-4078-a95f-77c4c4152b2e
+    - kubernetes.io/csi/rook-ceph.rbd.csi.ceph.com^0001-0009-rook-ceph-0000000000000002-5d9c6eff-7d22-4e8b-8181-8adb2f9c493d
+- apiVersion: v1
+  kind: Node
+  metadata:
+    annotations:
+      csi.volume.kubernetes.io/nodeid: '{"csi.tigera.io":"kube3","rook-ceph.cephfs.csi.ceph.com":"kube3","rook-ceph.rbd.csi.ceph.com":"kube3"}'
+      kubeadm.alpha.kubernetes.io/cri-socket: unix:///var/run/containerd/containerd.sock
+      node.alpha.kubernetes.io/ttl: "0"
+      projectcalico.org/IPv4Address: 172.18.1.63/24
+      projectcalico.org/IPv4VXLANTunnelAddr: 10.244.9.128
+      volumes.kubernetes.io/controller-managed-attach-detach: "true"
+    creationTimestamp: "2025-11-05T02:42:19Z"
+    labels:
+      beta.kubernetes.io/arch: amd64
+      beta.kubernetes.io/os: linux
+      kubernetes.io/arch: amd64
+      kubernetes.io/hostname: kube3
+      kubernetes.io/os: linux
+      node-role.kubernetes.io/control-plane: ""
+      node.kubernetes.io/exclude-from-external-load-balancers: ""
+    name: kube3
+    resourceVersion: "1160682"
+    uid: 87b6d180-d57b-4e4c-8eb1-c216809c388e
+  spec:
+    podCIDR: 10.244.2.0/24
+    podCIDRs:
+    - 10.244.2.0/24
+  status:
+    addresses:
+    - address: 172.18.1.63
+      type: InternalIP
+    - address: kube3
+      type: Hostname
+    allocatable:
+      cpu: "4"
+      ephemeral-storage: "27418768544"
+      hugepages-2Mi: "0"
+      memory: 16274596Ki
+      pods: "110"
+    capacity:
+      cpu: "4"
+      ephemeral-storage: 29751268Ki
+      hugepages-2Mi: "0"
+      memory: 16376996Ki
+      pods: "110"
+    conditions:
+    - lastHeartbeatTime: "2025-11-07T21:24:15Z"
+      lastTransitionTime: "2025-11-07T21:24:15Z"
+      message: Calico is running on this node
+      reason: CalicoIsUp
+      status: "False"
+      type: NetworkUnavailable
+    - lastHeartbeatTime: "2025-11-09T23:31:54Z"
+      lastTransitionTime: "2025-11-07T21:27:31Z"
+      message: kubelet has sufficient memory available
+      reason: KubeletHasSufficientMemory
+      status: "False"
+      type: MemoryPressure
+    - lastHeartbeatTime: "2025-11-09T23:31:54Z"
+      lastTransitionTime: "2025-11-07T21:27:31Z"
+      message: kubelet has no disk pressure
+      reason: KubeletHasNoDiskPressure
+      status: "False"
+      type: DiskPressure
+    - lastHeartbeatTime: "2025-11-09T23:31:54Z"
+      lastTransitionTime: "2025-11-07T21:27:31Z"
+      message: kubelet has sufficient PID available
+      reason: KubeletHasSufficientPID
+      status: "False"
+      type: PIDPressure
+    - lastHeartbeatTime: "2025-11-09T23:31:54Z"
+      lastTransitionTime: "2025-11-07T21:27:31Z"
+      message: kubelet is posting ready status
+      reason: KubeletReady
+      status: "True"
+      type: Ready
+    daemonEndpoints:
+      kubeletEndpoint:
+        Port: 10250
+    images:
+    - names:
+      - quay.io/cephcsi/cephcsi@sha256:e550a2f872ca468ec552157a9db79abfbbb27375d15ccc4abb439f69fa292726
+      - quay.io/cephcsi/cephcsi:v3.12.2
+      sizeBytes: 549477808
+    - names:
+      - docker.io/rook/ceph@sha256:b94b23ecaf32e656c2460e2420dbc328be2951c673e41b7d3f2e3fe1eddecb59
+      - docker.io/rook/ceph:v1.15.5
+      sizeBytes: 470665628
+    - names:
+      - quay.io/ceph/ceph@sha256:6ac7f923aa1d23b43248ce0ddec7e1388855ee3d00813b52c3172b0b23b37906
+      - quay.io/ceph/ceph:v18.2.4
+      sizeBytes: 437611542
+    - names:
+      - docker.io/grafana/grafana@sha256:35c41e0fd0295f5d0ee5db7e780cf33506abfaf47686196f825364889dee878b
+      - docker.io/grafana/grafana:12.2.1
+      sizeBytes: 204055214
+    - names:
+      - quay.io/argoproj/argocd@sha256:3c9b3b33a7e6c9c56a9d8417af1845afc516f714941962208b125017bbc1e4b1
+      - quay.io/argoproj/argocd:v3.2.0
+      sizeBytes: 195024619
+    - names:
+      - docker.io/calico/node@sha256:385bf6391fea031649b8575799248762a2caece86e6e3f33ffee19c0c096e6a8
+      - docker.io/calico/node:v3.28.0
+      sizeBytes: 115239232
+    - names:
+      - docker.io/calico/cni@sha256:cef0c907b8f4cadc63701d371e6f24d325795bcf0be84d6a517e33000ff35f70
+      - docker.io/calico/cni:v3.28.0
+      sizeBytes: 94536228
+    - names:
+      - docker.io/grafana/promtail@sha256:65bfae480b572854180c78f7dc567a4ad2ba548b0c410e696baa1e0fa6381299
+      - docker.io/grafana/promtail:3.5.1
+      sizeBytes: 65313914
+    - names:
+      - docker.io/minio/minio@sha256:14cea493d9a34af32f524e538b8346cf79f3321eff8e708c1e2960462bd8936e
+      - docker.io/minio/minio:latest
+      sizeBytes: 62245347
+    - names:
+      - registry.k8s.io/etcd@sha256:a6dc63e6e8cfa0307d7851762fa6b629afb18f28d8aa3fab5a6e91b4af60026a
+      - registry.k8s.io/etcd:3.5.15-0
+      sizeBytes: 56909194
+    - names:
+      - quay.io/metallb/speaker@sha256:b09a1dfcf330938950b65115cd58f6989108c0c21d3c096040e7fe9a25a92993
+      - quay.io/metallb/speaker:v0.14.9
+      sizeBytes: 55246333
+    - names:
+      - quay.io/metallb/speaker@sha256:b4a5576a3cf5816612f54355804bdb83a2560ad4120691129a2e5bac5339ee0c
+      - quay.io/metallb/speaker:v0.13.12
+      sizeBytes: 52067123
+    - names:
+      - docker.io/calico/apiserver@sha256:9a93592acff4fac0829f5254ee1335581a2cce16c4f11b36c4c89a48740d8efc
+      - docker.io/calico/apiserver:v3.28.0
+      sizeBytes: 41869654
+    - names:
+      - quay.io/prometheus/alertmanager@sha256:88743b63b3e09ea6e31e140ced5bf45f4a8e82c617c2a963f78841f4995ad1d7
+      - quay.io/prometheus/alertmanager:v0.29.0
+      sizeBytes: 35538534
+    - names:
+      - docker.io/calico/kube-controllers@sha256:8f04e4772a2b3fa752bc7fb98cc89c7fa0ab88a341115ee8c5b6faa4180053fd
+      - docker.io/calico/kube-controllers:v3.28.0
+      sizeBytes: 34954139
+    - names:
+      - docker.io/calico/typha@sha256:77677c3b2614923988960151008ffc876582c722199e4b0a9a084a70b6539637
+      - docker.io/calico/typha:v3.28.0
+      sizeBytes: 30906400
+    - names:
+      - registry.k8s.io/kube-proxy@sha256:a39637326e88d128d38da6ff2b2ceb4e856475887bfcb5f7a55734d4f63d9fae
+      - registry.k8s.io/kube-proxy:v1.31.13
+      sizeBytes: 30409271
+    - names:
+      - registry.k8s.io/sig-storage/csi-provisioner@sha256:405a14e1aa702f7ea133cea459e8395fe40a6125c088c55569e696d48e1bd385
+      - registry.k8s.io/sig-storage/csi-provisioner:v5.0.1
+      sizeBytes: 30334083
+    - names:
+      - registry.k8s.io/sig-storage/csi-resizer@sha256:a541e6cc2d8b011bb21b1d4ffec6b090e85270cce6276ee302d86153eec0af43
+      - registry.k8s.io/sig-storage/csi-resizer:v1.11.1
+      sizeBytes: 29161532
+    - names:
+      - registry.k8s.io/sig-storage/csi-attacher@sha256:b4d611100ece2f9bc980d1cb19c2285b8868da261e3b1ee8f45448ab5512ab94
+      - registry.k8s.io/sig-storage/csi-attacher:v4.6.1
+      sizeBytes: 28974442
+    - names:
+      - quay.io/metallb/controller@sha256:2b7eca48ed135e5f298b4ac349ec9f3b3a897ca26cc64d61939d0bfc9dcab847
+      - quay.io/metallb/controller:v0.13.12
+      sizeBytes: 28523651
+    - names:
+      - registry.k8s.io/sig-storage/csi-snapshotter@sha256:2e04046334baf9be425bb0fa1d04c2d1720d770825eedbdbcdb10d430da4ad8c
+      - registry.k8s.io/sig-storage/csi-snapshotter:v8.0.1
+      sizeBytes: 28522689
+    - names:
+      - registry.k8s.io/kube-apiserver@sha256:9abeb8a2d3e53e356d1f2e5d5dc2081cf28f23242651b0552c9e38f4a7ae960e
+      - registry.k8s.io/kube-apiserver:v1.31.13
+      sizeBytes: 28113723
+    - names:
+      - public.ecr.aws/docker/library/redis@sha256:59b6e694653476de2c992937ebe1c64182af4728e54bb49e9b7a6c26614d8933
+      - public.ecr.aws/docker/library/redis:8.2.2-alpine
+      sizeBytes: 27504168
+    - names:
+      - registry.k8s.io/kube-controller-manager@sha256:facc91288697a288a691520949fe4eec40059ef065c89da8e10481d14e131b09
+      - registry.k8s.io/kube-controller-manager:v1.31.13
+      sizeBytes: 26351311
+    - names:
+      - quay.io/kiwigrid/k8s-sidecar@sha256:835d79d8fbae62e42d8a86929d4e3c5eec2e869255dd37756b5a3166c2f22309
+      - quay.io/kiwigrid/k8s-sidecar:1.30.10
+      sizeBytes: 22400875
+    - names:
+      - quay.io/tigera/operator@sha256:479ddc7ff9ab095058b96f6710bbf070abada86332e267d6e5dcc1df36ba2cc5
+      - quay.io/tigera/operator:v1.34.0
+      sizeBytes: 22070263
+    - names:
+      - registry.k8s.io/kube-scheduler@sha256:c5ce150dcce2419fdef9f9875fef43014355ccebf937846ed3a2971953f9b241
+      - registry.k8s.io/kube-scheduler:v1.31.13
+      sizeBytes: 20422395
+    - names:
+      - quay.io/prometheus-operator/prometheus-operator@sha256:92757e4b90027e153dc09f2e01254c8402fd5268827d95532760836c2a117062
+      - quay.io/prometheus-operator/prometheus-operator:v0.86.2
+      sizeBytes: 19408190
+    - names:
+      - registry.k8s.io/kube-state-metrics/kube-state-metrics@sha256:2bbc915567334b13632bf62c0a97084aff72a36e13c4dabd5f2f11c898c5bacd
+      - registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.17.0
+      sizeBytes: 18895170
+    - names:
+      - registry.k8s.io/coredns/coredns@sha256:9caabbf6238b189a65d0d6e6ac138de60d6a1c419e5a341fbbb7c78382559c6e
+      - registry.k8s.io/coredns/coredns:v1.11.3
+      sizeBytes: 18562039
+    - names:
+      - registry.k8s.io/sig-storage/nfs-subdir-external-provisioner@sha256:63d5e04551ec8b5aae83b6f35938ca5ddc50a88d85492d9731810c31591fa4c9
+      - registry.k8s.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2
+      sizeBytes: 17904239
+    - names:
+      - quay.io/prometheus-operator/prometheus-config-reloader@sha256:44dd821cb3dd26698c3e97b10dc22ec5707afe6126b5912dc11b169394bf2ef7
+      - quay.io/prometheus-operator/prometheus-config-reloader:v0.86.2
+      sizeBytes: 15179466
+    - names:
+      - registry.k8s.io/sig-storage/csi-node-driver-registrar@sha256:e01facb9fb9cffaf52d0053bdb979fbd8c505c8e411939a6e026dd061a6b4fbe
+      - registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.11.1
+      sizeBytes: 13697025
+    - names:
+      - quay.io/prometheus/node-exporter@sha256:337ff1d356b68d39cef853e8c6345de11ce7556bb34cda8bd205bcf2ed30b565
+      - quay.io/prometheus/node-exporter:v1.10.2
+      sizeBytes: 13054407
+    - names:
+      - docker.io/calico/node-driver-registrar@sha256:25a00aca99eb67ca8fc6fda2888bdce0f8bb6704d71433f3daba52e72061a785
+      - docker.io/calico/node-driver-registrar:v3.28.0
+      sizeBytes: 11595985
+    - names:
+      - docker.io/calico/csi@sha256:6590b3466d5bfeb26e0337b85bdd25ff5361e6373e5e5a72fab5212a65c62247
+      - docker.io/calico/csi:v3.28.0
+      sizeBytes: 9089440
+    - names:
+      - docker.io/calico/pod2daemon-flexvol@sha256:2054fc9485e11bdde7ec8e22bca88bbf3a0f777f6c17509045a427294aa0a54b
+      - docker.io/calico/pod2daemon-flexvol:v3.28.0
+      sizeBytes: 6588906
+    - names:
+      - docker.io/library/busybox@sha256:95cf004f559831017cdf4628aaf1bb30133677be8702a8c5f2994629f637a209
+      - docker.io/library/busybox:1.31.1
+      sizeBytes: 764556
+    - names:
+      - registry.k8s.io/pause@sha256:ee6521f290b2168b6e0935a181d4cff9be1ac3f505666ef0e3c98fae8199917a
+      - registry.k8s.io/pause:3.10
+      sizeBytes: 320368
+    - names:
+      - registry.k8s.io/pause@sha256:9001185023633d17a2f98ff69b6ff2615b8ea02a825adffa40422f51dfdcde9d
+      - registry.k8s.io/pause:3.8
+      sizeBytes: 311286
+    nodeInfo:
+      architecture: amd64
+      bootID: b63119d7-91ed-42ce-b32b-11f43e4d3e11
+      containerRuntimeVersion: containerd://1.7.28
+      kernelVersion: 6.8.0-87-generic
+      kubeProxyVersion: v1.31.13
+      kubeletVersion: v1.31.13
+      machineID: 715516ef67c94f0db17d855777e3c81f
+      operatingSystem: linux
+      osImage: Ubuntu 24.04.3 LTS
+      systemUUID: ddbfabe9-306c-4386-88b7-bf1b8805fcc7
+    volumesAttached:
+    - devicePath: ""
+      name: kubernetes.io/csi/rook-ceph.rbd.csi.ceph.com^0001-0009-rook-ceph-0000000000000002-c1b804ef-6602-4796-8d8b-ef2dcf55acf2
+    volumesInUse:
+    - kubernetes.io/csi/rook-ceph.rbd.csi.ceph.com^0001-0009-rook-ceph-0000000000000002-c1b804ef-6602-4796-8d8b-ef2dcf55acf2
+kind: List
+metadata:
+  resourceVersion: ""

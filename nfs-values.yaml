@@ -1,0 +1,8 @@
+USER-SUPPLIED VALUES:
+nfs:
+  path: /mnt/TrueNAS02_HDD
+  server: 172.18.1.97
+storageClass:
+  defaultClass: false
+  name: nfs-client
+  reclaimPolicy: Retain
