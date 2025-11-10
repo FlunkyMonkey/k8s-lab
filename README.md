@@ -25,3 +25,11 @@ Configuration files for kube.vgriz.com cluster.
 ## Rebuild Commands
 
 See docs/ folder for detailed procedures.
+
+## Backup
+
+Enterprise-grade backup with Velero. See [BACKUP.md](BACKUP.md) for details.
+
+- Daily backups at 2 AM (7 day retention)
+- Weekly full backups on Sunday at 3 AM (30 day retention)
+- Stored in MinIO (S3-compatible) backed by NFS
