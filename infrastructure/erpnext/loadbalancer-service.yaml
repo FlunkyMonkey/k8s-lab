@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: erpnext-lb
+  namespace: erpnext
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: "172.18.1.213"
+spec:
+  type: LoadBalancer
+  selector:
+    app.kubernetes.io/instance: erpnext-nginx
+    app.kubernetes.io/name: erpnext-nginx
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8080

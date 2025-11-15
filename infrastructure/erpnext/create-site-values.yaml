@@ -1,0 +1,9 @@
+jobs:
+  createSite:
+    enabled: true
+    forceCreate: false
+    siteName: "erp.vgriz.com"
+    adminPassword: "H$1f*@hc0M"
+    installApps:
+      - "erpnext"
+    dbType: "mariadb"
