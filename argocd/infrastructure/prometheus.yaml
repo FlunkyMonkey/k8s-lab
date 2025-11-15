@@ -22,6 +22,7 @@ spec:
             storageClassName: rook-ceph-block
           service:
             type: LoadBalancer
+            loadBalancerIP: 172.18.1.201
           sidecar:
             datasources:
               enabled: true
@@ -38,9 +39,13 @@ spec:
                   resources:
                     requests:
                       storage: 10Gi
+          service:
+            type: LoadBalancer
+            loadBalancerIP: 172.18.1.204
         alertmanager:
           service:
             type: LoadBalancer
+            loadBalancerIP: 172.18.1.202
           alertmanagerSpec:
             storage:
               volumeClaimTemplate:
