@@ -42,6 +42,8 @@ spec:
           service:
             type: LoadBalancer
             loadBalancerIP: 172.18.1.204
+            port: 80
+            targetPort: 9090
         alertmanager:
           service:
             type: LoadBalancer
