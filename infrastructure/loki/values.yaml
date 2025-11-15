@@ -1,0 +1,15 @@
+loki:
+  enabled: true
+  persistence:
+    enabled: true
+    size: 10Gi
+    storageClassName: rook-ceph-block
+
+promtail:
+  enabled: true
+
+grafana:
+  enabled: false
+
+prometheus:
+  enabled: false
