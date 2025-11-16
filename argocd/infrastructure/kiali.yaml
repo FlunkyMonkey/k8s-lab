@@ -21,11 +21,9 @@ spec:
             enabled: false
         external_services:
           prometheus:
-            url: http://kube-prometheus-stack-prometheus.monitoring:9090
+            url: http://kube-prometheus-stack-prometheus.monitoring:80
           grafana:
-            enabled: true
-            in_cluster_url: http://kube-prometheus-stack-grafana.monitoring
-            url: http://grafana.vgriz.com
+            enabled: false
   destination:
     server: https://kubernetes.default.svc
     namespace: istio-system
