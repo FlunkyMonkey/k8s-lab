@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: code-server-home
+  name: code-server-config
   namespace: code-server
 spec:
   accessModes:
@@ -23,7 +23,7 @@ spec:
   ports:
     - name: http
       port: 80
-      targetPort: 8080
+      targetPort: 8443
   selector:
     app: code-server
 ---
@@ -44,23 +44,29 @@ spec:
     spec:
       containers:
         - name: code-server
-          image: codercom/code-server:latest
+          image: lscr.io/linuxserver/code-server:latest
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8080
+            - containerPort: 8443
               name: http
           env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "America/Los_Angeles"
             - name: PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: code-server-secret
                   key: password
-            # Optionally pin a working directory:
-            - name: DOCKER_USER
-              value: "coder"
+            # Optional: default workspace inside /config
+            - name: DEFAULT_WORKSPACE
+              value: "/config/workspace"
           volumeMounts:
-            - name: home
-              mountPath: /home/coder
+            - name: config
+              mountPath: /config
           resources:
             requests:
               cpu: "200m"
@@ -69,6 +75,6 @@ spec:
               cpu: "1"
               memory: "1Gi"
       volumes:
-        - name: home
+        - name: config
           persistentVolumeClaim:
-            claimName: code-server-home
+            claimName: code-server-config
