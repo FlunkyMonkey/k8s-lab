@@ -45,6 +45,11 @@ spec:
               value: "America/Los_Angeles"
             - name: APP_URL
               value: "http://bookstack.vgriz.com"
+            - name: APP_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: bookstack-app-secret
+                  key: app-key
             - name: DB_HOST
               value: "bookstack-mariadb.bookstack.svc.cluster.local"
             - name: DB_PORT
