@@ -44,22 +44,17 @@ spec:
             - name: TZ
               value: "America/Los_Angeles"
             - name: APP_URL
-              value: "http://book.vgriz.com"
-            - name: APP_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: bookstack-app-secret
-                  key: app-key
+              value: "http://bookstack.vgriz.com"
             - name: DB_HOST
               value: "bookstack-mariadb.bookstack.svc.cluster.local"
             - name: DB_PORT
               value: "3306"
-            - name: DB_USERNAME
+            - name: DB_USER
               valueFrom:
                 secretKeyRef:
                   name: bookstack-db-secret
                   key: mariadb-user
-            - name: DB_PASSWORD
+            - name: DB_PASS
               valueFrom:
                 secretKeyRef:
                   name: bookstack-db-secret
