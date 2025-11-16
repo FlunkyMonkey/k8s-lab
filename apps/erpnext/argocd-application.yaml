@@ -10,8 +10,7 @@ spec:
     targetRevision: "*"
     chart: erpnext
     helm:
-      valueFiles: []
-      values: |
+      valuesObject:
         image:
           repository: frappe/erpnext
           tag: v15.88.1
@@ -108,6 +107,12 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: erpnext
+  ignoreDifferences:
+    - group: batch
+      kind: Job
+      jsonPointers:
+        - /spec
+        - /metadata
   syncPolicy:
     automated:
       prune: false
