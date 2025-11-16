@@ -16,7 +16,11 @@ spec:
         driver:
           kind: modern_ebpf
         falcosidekick:
-          enabled: false
+          enabled: true
+          webui:
+            enabled: true
+            service:
+              type: LoadBalancer
         tty: true
   destination:
     server: https://kubernetes.default.svc
