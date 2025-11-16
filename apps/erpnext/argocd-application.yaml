@@ -102,8 +102,8 @@ spec:
 
         jobs:
           configure:
-            enabled: true
-            fixVolume: true
+            enabled: false
+            fixVolume: false
   destination:
     server: https://kubernetes.default.svc
     namespace: erpnext

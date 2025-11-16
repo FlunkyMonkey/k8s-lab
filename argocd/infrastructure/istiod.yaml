@@ -45,10 +45,14 @@ spec:
       kind: ValidatingWebhookConfiguration
       jsonPointers:
         - /webhooks/0/failurePolicy
+    - group: apps
+      kind: Deployment
+      jqPathExpressions:
+        - .spec.template.metadata
   syncPolicy:
     automated:
       prune: false
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-      - ServerSideApply=true
+      - RespectIgnoreDifferences=true
