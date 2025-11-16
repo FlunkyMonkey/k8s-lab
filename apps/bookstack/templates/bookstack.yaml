@@ -49,17 +49,71 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: bookstack-app-secret
+                  key:
+
+cat <<'EOF' > apps/bookstack/templates/bookstack.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: bookstack
+  namespace: bookstack
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: "172.18.1.217"
+spec:
+  type: LoadBalancer
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+  selector:
+    app: bookstack
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookstack
+  namespace: bookstack
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bookstack
+  template:
+    metadata:
+      labels:
+        app: bookstack
+    spec:
+      containers:
+        - name: bookstack
+          image: lscr.io/linuxserver/bookstack:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              name: http
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "America/Los_Angeles"
+            - name: APP_URL
+              value: "http://bookstack.vgriz.com"
+            - name: APP_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: bookstack-app-secret
                   key: app-key
             - name: DB_HOST
               value: "bookstack-mariadb.bookstack.svc.cluster.local"
             - name: DB_PORT
               value: "3306"
-            - name: DB_USER
+            - name: DB_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: bookstack-db-secret
                   key: mariadb-user
-            - name: DB_PASS
+            - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: bookstack-db-secret
