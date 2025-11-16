@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: jaeger
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://jaegertracing.github.io/helm-charts
+    chart: jaeger
+    targetRevision: 3.3.1
+    helm:
+      valuesObject:
+        provisionDataStore:
+          cassandra: false
+        allInOne:
+          enabled: true
+          ingress:
+            enabled: false
+        storage:
+          type: memory
+        agent:
+          enabled: false
+        collector:
+          enabled: false
+        query:
+          enabled: false
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: istio-system
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=false
