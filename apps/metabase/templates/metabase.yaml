@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: metabase
+  namespace: metabase
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 172.18.1.219
+  selector:
+    app: metabase
+  ports:
+    - name: http
+      port: 80
+      targetPort: 3000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metabase
+  namespace: metabase
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: metabase
+  template:
+    metadata:
+      labels:
+        app: metabase
+    spec:
+      containers:
+        - name: metabase
+          image: metabase/metabase:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 3000
+          env:
+            - name: MB_DB_TYPE
+              value: postgres
+            - name: MB_DB_HOST
+              value: metabase-postgres.metabase.svc.cluster.local
+            - name: MB_DB_PORT
+              value: "5432"
+            - name: MB_DB_DBNAME
+              valueFrom:
+                secretKeyRef:
+                  name: metabase-db-secret
+                  key: database
+            - name: MB_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: metabase-db-secret
+                  key: username
+            - name: MB_DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: metabase-db-secret
+                  key: password
+            - name: MB_SITE_URL
+              value: http://metabase.vgriz.com
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "512Mi"
+            limits:
+              cpu: "1000m"
+              memory: "2Gi"
