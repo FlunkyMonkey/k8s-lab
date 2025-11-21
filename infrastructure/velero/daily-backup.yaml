@@ -1,0 +1,28 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: daily-backup
+  namespace: velero
+spec:
+  schedule: 0 2 * * *
+  skipImmediately: false
+  template:
+    csiSnapshotTimeout: 0s
+    hooks: {}
+    includedNamespaces:
+    - monitoring
+    - argocd
+    - rook-ceph
+    - uptime-kuma
+    - jupyter
+    - homepage
+    - home-assistant
+    - databases
+    - erpnext
+    - n8n
+    - metabase
+    - openvas
+    itemOperationTimeout: 0s
+    metadata: {}
+    ttl: 168h0m0s
+  useOwnerReferencesInBackup: false
