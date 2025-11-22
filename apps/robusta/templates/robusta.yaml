@@ -1,0 +1,132 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: robusta
+  namespace: robusta
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: robusta
+rules:
+  - apiGroups: ["*"]
+    resources: ["*"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["pods/log", "pods/exec"]
+    verbs: ["get", "create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: robusta
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: robusta
+subjects:
+  - kind: ServiceAccount
+    name: robusta
+    namespace: robusta
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: robusta-runner
+  namespace: robusta
+spec:
+  type: ClusterIP
+  selector:
+    app: robusta-runner
+  ports:
+    - name: http
+      port: 5000
+      targetPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: robusta-ui
+  namespace: robusta
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: "172.18.1.224"
+spec:
+  type: LoadBalancer
+  selector:
+    app: robusta-ui
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: robusta-runner
+  namespace: robusta
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: robusta-runner
+  template:
+    metadata:
+      labels:
+        app: robusta-runner
+    spec:
+      serviceAccountName: robusta
+      containers:
+        - name: robusta-runner
+          image: us-central1-docker.pkg.dev/genuine-flight-317411/devel/robusta-runner:latest
+          ports:
+            - name: http
+              containerPort: 5000
+          env:
+            - name: PROMETHEUS_URL
+              value: "http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090"
+          volumeMounts:
+            - name: config
+              mountPath: /etc/robusta/config
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+      volumes:
+        - name: config
+          configMap:
+            name: robusta-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: robusta-ui
+  namespace: robusta
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: robusta-ui
+  template:
+    metadata:
+      labels:
+        app: robusta-ui
+    spec:
+      containers:
+        - name: robusta-ui
+          image: us-central1-docker.pkg.dev/genuine-flight-317411/devel/robusta-ui:latest
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: BACKEND_URL
+              value: "http://robusta-runner.robusta.svc.cluster.local:5000"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
