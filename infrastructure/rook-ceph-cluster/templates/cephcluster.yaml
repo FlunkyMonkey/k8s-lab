@@ -21,6 +21,12 @@ spec:
   dashboard:
     enabled: true
     ssl: false
+  placement:
+    all:
+      tolerations:
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
+        effect: NoSchedule
   storage:
     useAllNodes: true
     useAllDevices: false
