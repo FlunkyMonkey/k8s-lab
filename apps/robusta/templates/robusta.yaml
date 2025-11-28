@@ -17,6 +17,30 @@ rules:
     verbs: ["get", "create"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: robusta-config-manager
+  namespace: robusta
+rules:
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: robusta-config-manager
+  namespace: robusta
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: robusta-config-manager
+subjects:
+  - kind: ServiceAccount
+    name: robusta
+    namespace: robusta
+---
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: robusta
