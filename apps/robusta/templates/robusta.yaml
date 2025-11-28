@@ -57,7 +57,7 @@ spec:
   ports:
     - name: http
       port: 80
-      targetPort: 8080
+      targetPort: 3000
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -84,16 +84,18 @@ spec:
           env:
             - name: PROMETHEUS_URL
               value: "http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090"
+            - name: PLAYBOOKS_CONFIG_FILE_PATH
+              value: "/etc/robusta/config/active_playbooks.yaml"
           volumeMounts:
             - name: config
               mountPath: /etc/robusta/config
           resources:
             requests:
-              cpu: "250m"
-              memory: "512Mi"
+              cpu: "100m"
+              memory: "256Mi"
             limits:
-              cpu: "1"
-              memory: "1Gi"
+              cpu: "500m"
+              memory: "512Mi"
       volumes:
         - name: config
           configMap:
@@ -116,17 +118,17 @@ spec:
     spec:
       containers:
         - name: robusta-ui
-          image: us-central1-docker.pkg.dev/genuine-flight-317411/devel/robusta-ui:latest
+          image: robustadev/robusta-ui-runner:latest
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: 3000
           env:
-            - name: BACKEND_URL
+            - name: RUNNER_URL
               value: "http://robusta-runner.robusta.svc.cluster.local:5000"
           resources:
             requests:
-              cpu: "100m"
-              memory: "256Mi"
+              cpu: "25m"
+              memory: "128Mi"
             limits:
-              cpu: "500m"
-              memory: "512Mi"
+              cpu: "250m"
+              memory: "256Mi"

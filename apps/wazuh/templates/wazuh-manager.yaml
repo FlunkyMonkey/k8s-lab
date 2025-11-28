@@ -37,6 +37,76 @@ spec:
       labels:
         app: wazuh-manager
     spec:
+      initContainers:
+        - name: init-config
+          image: busybox
+          command:
+            - sh
+            - -c
+            - |
+              # Create basic ossec.conf if it doesn't exist
+              if [ ! -f /var/ossec/etc/ossec.conf ]; then
+                cat > /var/ossec/etc/ossec.conf <<OSSEC_EOF
+              <ossec_config>
+                <global>
+                  <jsonout_output>yes</jsonout_output>
+                  <alerts_log>yes</alerts_log>
+                  <logall>no</logall>
+                  <logall_json>no</logall_json>
+                  <email_notification>no</email_notification>
+                  <smtp_server>smtp.example.wazuh.com</smtp_server>
+                  <email_from>wazuh@example.wazuh.com</email_from>
+                  <email_to>recipient@example.wazuh.com</email_to>
+                  <email_maxperhour>12</email_maxperhour>
+                  <email_log_source>alerts.log</email_log_source>
+                </global>
+
+                <alerts>
+                  <log_alert_level>3</log_alert_level>
+                  <email_alert_level>12</email_alert_level>
+                </alerts>
+
+                <remote>
+                  <connection>secure</connection>
+                  <port>1514</port>
+                  <protocol>tcp</protocol>
+                  <queue_size>131072</queue_size>
+                </remote>
+
+                <auth>
+                  <disabled>no</disabled>
+                  <port>1515</port>
+                  <use_source_ip>no</use_source_ip>
+                  <force_insert>no</force_insert>
+                  <force_time>0</force_time>
+                  <purge>yes</purge>
+                  <use_password>no</use_password>
+                  <ssl_agent_ca></ssl_agent_ca>
+                  <ssl_verify_host>no</ssl_verify_host>
+                  <ssl_manager_cert></ssl_manager_cert>
+                  <ssl_manager_key></ssl_manager_key>
+                  <ssl_auto_negotiate>no</ssl_auto_negotiate>
+                </auth>
+
+                <cluster>
+                  <name>wazuh</name>
+                  <node_name>node01</node_name>
+                  <node_type>master</node_type>
+                  <key></key>
+                  <port>1516</port>
+                  <bind_addr>0.0.0.0</bind_addr>
+                  <nodes>
+                    <node>wazuh-manager</node>
+                  </nodes>
+                  <hidden>no</hidden>
+                  <disabled>no</disabled>
+                </cluster>
+              </ossec_config>
+              OSSEC_EOF
+              fi
+          volumeMounts:
+            - name: wazuh-manager-etc
+              mountPath: /var/ossec/etc
       containers:
         - name: wazuh-manager
           image: wazuh/wazuh-manager:4.8.0
@@ -62,12 +132,6 @@ spec:
                   key: password
             - name: FILEBEAT_SSL_VERIFICATION_MODE
               value: "none"
-            - name: SSL_CERTIFICATE_AUTHORITIES
-              value: ""
-            - name: SSL_CERTIFICATE
-              value: ""
-            - name: SSL_KEY
-              value: ""
             - name: API_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -87,11 +151,11 @@ spec:
               mountPath: /var/ossec/logs
           resources:
             requests:
-              cpu: "500m"
-              memory: "1Gi"
+              cpu: "200m"
+              memory: "512Mi"
             limits:
-              cpu: "2"
-              memory: "2Gi"
+              cpu: "1"
+              memory: "1Gi"
   volumeClaimTemplates:
     - metadata:
         name: wazuh-manager-data

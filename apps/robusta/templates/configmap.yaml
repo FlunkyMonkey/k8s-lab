@@ -5,13 +5,21 @@ metadata:
   namespace: robusta
 data:
   active_playbooks.yaml: |
-    playbook_repos:
-      - url: https://github.com/robusta-dev/robusta-playbooks.git
-    
     global_config:
-      prometheus_url: "http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090"
+      cluster_name: home-lab
+      prometheus_url: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
+      
+    sinks_config: []
     
-    sinks_config:
-      - webhook_sink:
-          name: main_webhook
-          url: "http://robusta-runner.robusta.svc.cluster.local:5000/api/alerts"
+    active_playbooks:
+      - triggers:
+          - on_pod_crash_loop:
+              restart_reason: "CrashLoopBackOff"
+        actions:
+          - logs_enricher: {}
+      
+      - triggers:
+          - on_prometheus_alert:
+              alert_name: KubePodCrashLooping
+        actions:
+          - logs_enricher: {}
