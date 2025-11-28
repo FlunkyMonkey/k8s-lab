@@ -21,13 +21,15 @@ data:
     
     derp:
       server:
-        enabled: false
-      urls:
-        - https://controlplane.tailscale.com/derpmap/default
-      auto_update_enabled: true
-      update_frequency: 24h
+        enabled: true
+        region_id: 999
+        region_code: "homelab"
+        region_name: "Home Lab"
+        stun_listen_addr: "0.0.0.0:3478"
+      urls: []
+      auto_update_enabled: false
     
-    disable_check_updates: false
+    disable_check_updates: true
     ephemeral_node_inactivity_timeout: 30m
     
     database:
