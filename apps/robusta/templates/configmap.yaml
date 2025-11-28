@@ -5,6 +5,8 @@ metadata:
   namespace: robusta
 data:
   active_playbooks.yaml: |
+    playbook_repos: {}
+    
     global_config:
       cluster_name: home-lab
       prometheus_url: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
