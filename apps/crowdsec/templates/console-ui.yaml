@@ -79,7 +79,6 @@ kubectl exec -n crowdsec $(kubectl get pod -n crowdsec -o name) -- cscli alerts 
       </div>
 
       <script>
-        // Parse metrics from your provided data
         const metrics = {
           totalBans: 16103,
           sshBruteforce: 3898,
