@@ -70,6 +70,10 @@ spec:
                 secretKeyRef:
                   name: wazuh-creds
                   key: password
+          volumeMounts:
+            - name: config
+              mountPath: /usr/share/wazuh-dashboard/config/opensearch_dashboards.yml
+              subPath: opensearch_dashboards.yml
           resources:
             requests:
               cpu: "300m"
@@ -77,3 +81,7 @@ spec:
             limits:
               cpu: "1"
               memory: "2Gi"
+      volumes:
+        - name: config
+          configMap:
+            name: wazuh-dashboard-config
