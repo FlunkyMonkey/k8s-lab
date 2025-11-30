@@ -17,5 +17,4 @@ data:
     server.ssl.enabled: true
     server.ssl.key: "/usr/share/wazuh-dashboard/config/certs/dashboard-key.pem"
     server.ssl.certificate: "/usr/share/wazuh-dashboard/config/certs/dashboard.pem"
-    opensearch.ssl.certificateAuthorities: []
     uiSettings.overrides.defaultRoute: /app/wz-home
