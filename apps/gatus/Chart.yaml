@@ -1,6 +1,0 @@
-apiVersion: v2
-name: gatus
-description: Gatus Health Check and Status Page
-type: application
-version: 0.1.0
-appVersion: "v5.11.0"
