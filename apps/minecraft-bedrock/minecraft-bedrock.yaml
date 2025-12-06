@@ -30,7 +30,7 @@ spec:
   ports:
     - name: bedrock
       port: 19133
-      targetPort: 19133
+      targetPort: 19132
       protocol: UDP
 ---
 apiVersion: apps/v1
@@ -55,7 +55,7 @@ spec:
           image: itzg/minecraft-bedrock-server:latest
           ports:
             - name: bedrock
-              containerPort: 19133
+              containerPort: 19132
               protocol: UDP
           env:
             - name: EULA
@@ -68,8 +68,6 @@ spec:
               value: "normal"
             - name: LEVEL_SEED
               value: "8097496586259528417"
-            - name: SERVER_PORT
-              value: "19133"
             - name: MAX_PLAYERS
               value: "10"
             - name: ALLOW_CHEATS
