@@ -49,6 +49,10 @@ spec:
       labels:
         app: odoo
     spec:
+      securityContext:
+        fsGroup: 101
+        runAsUser: 101
+        runAsGroup: 101
       initContainers:
         - name: init-db
           image: postgres:16-alpine
@@ -58,17 +62,6 @@ spec:
             - |
               PGPASSWORD='h$1f*@hc0M' psql -h postgres.databases.svc.cluster.local -U mikeb -d dataengineering -tc "SELECT 1 FROM pg_database WHERE datname = 'odoo'" | grep -q 1 || \
               PGPASSWORD='h$1f*@hc0M' psql -h postgres.databases.svc.cluster.local -U mikeb -d dataengineering -c "CREATE DATABASE odoo OWNER mikeb;"
-        - name: fix-permissions
-          image: busybox
-          command:
-            - sh
-            - -c
-            - |
-              chown -R 101:101 /var/lib/odoo
-              chmod -R 755 /var/lib/odoo
-          volumeMounts:
-            - name: odoo-data
-              mountPath: /var/lib/odoo
       containers:
         - name: odoo
           image: odoo:19.0
