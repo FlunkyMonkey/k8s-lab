@@ -4,16 +4,6 @@ metadata:
   name: odoo
 ---
 apiVersion: v1
-kind: Secret
-metadata:
-  name: odoo-secrets
-  namespace: odoo
-type: Opaque
-stringData:
-  postgresql-password: "p@ssword12"
-  admin-password: "p@ssword12"
----
-apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: odoo-data
@@ -40,7 +30,7 @@ data:
     db_host = postgres.databases.svc.cluster.local
     db_port = 5432
     db_user = mikeb
-    db_password = p@ssword12
+    db_password = h$1f*@hc0M
     db_name = odoo
     http_port = 8069
     logfile = /var/log/odoo/odoo.log
@@ -88,8 +78,8 @@ spec:
             - sh
             - -c
             - |
-              PGPASSWORD=p@ssword12 psql -h postgres.databases.svc.cluster.local -U mikeb -d dataengineering -tc "SELECT 1 FROM pg_database WHERE datname = 'odoo'" | grep -q 1 || \
-              PGPASSWORD=p@ssword12 psql -h postgres.databases.svc.cluster.local -U mikeb -d dataengineering -c "CREATE DATABASE odoo OWNER mikeb;"
+              PGPASSWORD='h$1f*@hc0M' psql -h postgres.databases.svc.cluster.local -U mikeb -d dataengineering -tc "SELECT 1 FROM pg_database WHERE datname = 'odoo'" | grep -q 1 || \
+              PGPASSWORD='h$1f*@hc0M' psql -h postgres.databases.svc.cluster.local -U mikeb -d dataengineering -c "CREATE DATABASE odoo OWNER mikeb;"
       containers:
         - name: odoo
           image: odoo:19.0
@@ -104,7 +94,7 @@ spec:
             - name: USER
               value: "mikeb"
             - name: PASSWORD
-              value: "p@ssword12"
+              value: "h$1f*@hc0M"
           volumeMounts:
             - name: odoo-data
               mountPath: /var/lib/odoo
