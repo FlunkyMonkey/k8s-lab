@@ -1,0 +1,151 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: patchmon
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: patchmon-data
+  namespace: patchmon
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: rook-ceph-block
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: patchmon
+  namespace: patchmon
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: "172.18.1.230"
+spec:
+  type: LoadBalancer
+  selector:
+    app: patchmon
+  ports:
+    - name: http
+      port: 3000
+      targetPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: patchmon-postgres
+  namespace: patchmon
+spec:
+  selector:
+    app: patchmon-postgres
+  ports:
+    - port: 5432
+      targetPort: 5432
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: patchmon-postgres
+  namespace: patchmon
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: patchmon-postgres
+  template:
+    metadata:
+      labels:
+        app: patchmon-postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16-alpine
+          env:
+            - name: POSTGRES_USER
+              value: "patchmon"
+            - name: POSTGRES_PASSWORD
+              value: "p@ssword12"
+            - name: POSTGRES_DB
+              value: "patchmon"
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: postgres-data
+              mountPath: /var/lib/postgresql/data
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: patchmon-data
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: patchmon
+  namespace: patchmon
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: patchmon
+  template:
+    metadata:
+      labels:
+        app: patchmon
+    spec:
+      initContainers:
+        - name: wait-for-postgres
+          image: busybox:1.36
+          command:
+            - sh
+            - -c
+            - |
+              until nc -z patchmon-postgres 5432; do
+                echo "Waiting for postgres..."
+                sleep 2
+              done
+      containers:
+        - name: patchmon
+          image: ghcr.io/patchmon/patchmon:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DATABASE_URL
+              value: "postgresql://patchmon:p@ssword12@patchmon-postgres:5432/patchmon"
+            - name: NODE_ENV
+              value: "production"
+            - name: PORT
+              value: "3000"
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "512Mi"
+            limits:
+              cpu: "1000m"
+              memory: "1Gi"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 60
+            periodSeconds: 30
