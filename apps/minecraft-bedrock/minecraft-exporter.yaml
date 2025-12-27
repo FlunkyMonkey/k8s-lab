@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minecraft-exporter
+  namespace: minecraft-bedrock
+  labels:
+    app: minecraft-exporter
+spec:
+  ports:
+    - name: metrics
+      port: 9150
+      targetPort: 9150
+  selector:
+    app: minecraft-bedrock
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: minecraft-exporter
+  namespace: minecraft-bedrock
+  labels:
+    release: kube-prometheus-stack
+spec:
+  selector:
+    matchLabels:
+      app: minecraft-exporter
+  endpoints:
+    - port: metrics
+      interval: 30s
