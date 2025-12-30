@@ -3,8 +3,14 @@ kind: Service
 metadata:
   name: minio
   namespace: minio
+  labels:
+    app: minio
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: "172.18.1.205"
 spec:
   type: LoadBalancer
+  selector:
+    app: minio
   ports:
   - name: api
     port: 9000
@@ -12,5 +18,3 @@ spec:
   - name: console
     port: 80
     targetPort: 9001
-  selector:
-    app: minio
