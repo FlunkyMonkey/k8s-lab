@@ -1,0 +1,5 @@
+apiVersion: v2
+name: home-assistant
+description: Home Assistant home automation platform
+type: application
+version: 1.0.0
