@@ -1,0 +1,6 @@
+
+- Home Automation:
+    - Home Assistant:
+        href: http://172.18.1.230:8123
+        description: Home automation platform
+        icon: home-assistant.png
