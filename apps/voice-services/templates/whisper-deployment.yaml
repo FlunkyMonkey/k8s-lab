@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wyoming-whisper
+  namespace: voice-services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wyoming-whisper
+  template:
+    metadata:
+      labels:
+        app: wyoming-whisper
+    spec:
+      containers:
+      - name: wyoming-whisper
+        image: rhasspy/wyoming-whisper:latest
+        args:
+          - "--model"
+          - "base"
+          - "--language"
+          - "en"
+        ports:
+        - containerPort: 10300
+          name: wyoming
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "1Gi"
+          limits:
+            cpu: "2"
+            memory: "2Gi"
+        volumeMounts:
+        - name: data
+          mountPath: /data
+      volumes:
+      - name: data
+        emptyDir: {}

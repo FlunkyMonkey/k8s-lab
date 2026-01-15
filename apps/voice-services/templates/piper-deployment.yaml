@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wyoming-piper
+  namespace: voice-services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wyoming-piper
+  template:
+    metadata:
+      labels:
+        app: wyoming-piper
+    spec:
+      containers:
+      - name: wyoming-piper
+        image: rhasspy/wyoming-piper:latest
+        args:
+          - "--voice"
+          - "en_US-lessac-medium"
+        ports:
+        - containerPort: 10200
+          name: wyoming
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+          limits:
+            cpu: "1"
+            memory: "512Mi"
+        volumeMounts:
+        - name: data
+          mountPath: /data
+      volumes:
+      - name: data
+        emptyDir: {}

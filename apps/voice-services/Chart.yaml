@@ -1,0 +1,5 @@
+apiVersion: v2
+name: voice-services
+description: Voice services for Home Assistant (Whisper STT, Piper TTS)
+type: application
+version: 1.0.0

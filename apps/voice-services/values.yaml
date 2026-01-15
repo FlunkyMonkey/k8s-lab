@@ -1,0 +1,7 @@
+# Voice Services Configuration
+whisper:
+  model: base
+  language: en
+
+piper:
+  voice: en_US-lessac-medium
