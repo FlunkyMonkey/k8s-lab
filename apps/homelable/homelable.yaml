@@ -1,0 +1,161 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: homelable
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: homelable-config
+  namespace: homelable
+type: Opaque
+stringData:
+  SECRET_KEY: "8dc9334af93f042ea9bd4e977e8fc27a69fb8f84872fdb80a7d0c94e5d2b5bec"
+  AUTH_USERNAME: "admin"
+  AUTH_PASSWORD_HASH: "$2b$12$cNX4ElCRzPoUx9A4stuA1.S.JXESg/P0B9.bXLctEq3FHrWban6RG"
+  SCANNER_RANGES: '["172.18.1.0/24","172.18.232.0/24","172.18.5.0/24"]'
+  STATUS_CHECKER_INTERVAL: "60"
+  SQLITE_PATH: "/app/data/homelab.db"
+  CORS_ORIGINS: '["http://homelable.vgriz.com","http://172.18.1.213"]'
+  LIVEVIEW_KEY: "fMyoOgTYqXoTxHqq07ZtSu4zKt346bSYUe_5vZYoJJg"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: homelable-data
+  namespace: homelable
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: rook-ceph-block
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homelable-backend
+  namespace: homelable
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: homelable-backend
+  template:
+    metadata:
+      labels:
+        app: homelable-backend
+    spec:
+      containers:
+      - name: backend
+        image: ghcr.io/pouzor/homelable-backend:latest
+        ports:
+        - containerPort: 8000
+          protocol: TCP
+        envFrom:
+        - secretRef:
+            name: homelable-config
+        volumeMounts:
+        - name: data
+          mountPath: /app/data
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+        securityContext:
+          capabilities:
+            add:
+            - NET_RAW
+        livenessProbe:
+          httpGet:
+            path: /api/v1/health
+            port: 8000
+          initialDelaySeconds: 15
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /api/v1/health
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: homelable-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: homelable
+spec:
+  type: ClusterIP
+  selector:
+    app: homelable-backend
+  ports:
+  - name: http
+    port: 8000
+    targetPort: 8000
+    protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homelable-frontend
+  namespace: homelable
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: homelable-frontend
+  template:
+    metadata:
+      labels:
+        app: homelable-frontend
+    spec:
+      containers:
+      - name: frontend
+        image: ghcr.io/pouzor/homelable-frontend:latest
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "64Mi"
+          limits:
+            cpu: "200m"
+            memory: "128Mi"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: homelable
+  namespace: homelable
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: "172.18.1.213"
+spec:
+  type: LoadBalancer
+  selector:
+    app: homelable-frontend
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP
