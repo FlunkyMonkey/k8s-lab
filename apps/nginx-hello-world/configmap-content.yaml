@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-hello-world-content
+  namespace: nginx-hello-world
+  labels:
+    app.kubernetes.io/name: nginx-hello-world
+    app.kubernetes.io/part-of: storyops-smoke-tests
+data:
+  index.html: |
+    <!doctype html>
+    <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>NGINX Hello World</title>
+      <style>
+        body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 2rem; line-height: 1.5; }
+        main { max-width: 42rem; margin: 0 auto; padding: 2rem; border: 1px solid #ddd; border-radius: 1rem; }
+        h1 { color: #0f766e; }
+        code { background: #f4f4f5; padding: 0.15rem 0.35rem; border-radius: 0.25rem; }
+      </style>
+    </head>
+    <body>
+      <main>
+        <h1>Hello world from NGINX on Mike's homelab Kubernetes cluster.</h1>
+        <p>This page is deployed by ArgoCD from <code>FlunkyMonkey/k8s-lab</code>.</p>
+        <p>App: <code>nginx-hello-world</code></p>
+        <p>Namespace: <code>nginx-hello-world</code></p>
+      </main>
+    </body>
+    </html>

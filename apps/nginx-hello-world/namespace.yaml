@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nginx-hello-world
+  labels:
+    app.kubernetes.io/name: nginx-hello-world
+    app.kubernetes.io/part-of: storyops-smoke-tests
