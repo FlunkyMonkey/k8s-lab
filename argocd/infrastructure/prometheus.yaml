@@ -29,7 +29,7 @@ spec:
               defaultDatasourceEnabled: true
         prometheus:
           prometheusSpec:
-            retention: 7d
+            retention: 30d
             storageSpec:
               volumeClaimTemplate:
                 spec:
@@ -38,7 +38,7 @@ spec:
                     - ReadWriteOnce
                   resources:
                     requests:
-                      storage: 10Gi
+                      storage: 40Gi
           service:
             type: LoadBalancer
             loadBalancerIP: 172.18.1.204
